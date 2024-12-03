@@ -20,6 +20,8 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -44,10 +46,29 @@ table {
 	border-spacing: 0;
 }
 
-
-
-
+body {
+	font-family: 'Noto sans', serif;
+}
 
 .title {
-    font-family: "Acme", sans-serif;
+	font-family: 'Acme', serif;
+}
+
+
+CSS:root {
+	--bk-color: #e8ebe4;
+	--bk-color-task: #d2d5dd;
+	--font-color: #2a2b2a;
+	--bk-color-edit: #b8bacf;
+	--bk-color-delete: #999ac6;
+	--bk-color-newTask: #00dd9e; 
+}
+
+.dark {
+	--bk-color: #2a2b2a;
+	--bk-color-task: #706c61;
+	--font-color: #f8f8f8;
+	--bk-color-edit: #1f2041;
+	--bk-color-delete: #4b3f72;
+	--bk-color-newTask: #417b5a;
 }
