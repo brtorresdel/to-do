@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-back-light: #E8EBE4;
   --color-task-light: #D2D5DD;
@@ -18,4 +20,14 @@
   --color-overdue: #FC0000;
   --color-ontime: #12029F;
   --color-unschedule: #85029F;
+
+  --color-sunlight: #82C8E6;
+  --color-sun: #FFDF22;
+  --color-moonlight: #0B102B;
+  --color-moon: #F6F1D5;
+  --color-inactive-bg: #FFFFFF;
+  --color-inactive: #D9D9D9;
+
+  --font-noto-sans: "Noto Sans", serif;
+  --font-cookie: "Cookie", cursive;
 }
