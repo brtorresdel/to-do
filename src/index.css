@@ -25,9 +25,11 @@
   --color-sun: #FFDF22;
   --color-moonlight: #0B102B;
   --color-moon: #F6F1D5;
-  --color-inactive-bg: #FFFFFF;
-  --color-inactive: #D9D9D9;
+  --color-inactive-bg: #D9D9D9;
+  --color-inactive: #FFFFFF;
 
   --font-noto-sans: "Noto Sans", serif;
   --font-cookie: "Cookie", cursive;
+
+  --drop-shadow-basic: 1.5px 1.5px 1px rgba(0,0,0,0.25);
 }

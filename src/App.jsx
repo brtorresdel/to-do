@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import './App.css';
+import SwitchThemeMode from './components/SwitchThemeMode';
+import Header from './components/Header';
+import Tasks from './components/Tasks';
+import FinishedTasks from './components/FinishedTasks';
 
 function App() {
 
   let [prefTheme, setPrefTheme] = useState('');
 
-  function changeTheme() {
+  function changeAppTheme() {
     if (prefTheme) {
       return setPrefTheme('')
     }
@@ -14,9 +18,11 @@ function App() {
   }
 
   return (
-    <div className={`w-screen h-screen bg-back-light ${prefTheme} dark:bg-back-dark flex justify-center p6 pt-6`}>
-      <button onClick={changeTheme}>Troca</button>
-      Hello World!
+    <div className={`w-screen h-screen bg-back-light ${prefTheme} dark:bg-back-dark flex justify-center`}>
+      <SwitchThemeMode onChangeAppTheme={changeAppTheme}/>
+      <Header />
+      <Tasks />
+      <FinishedTasks />
     </div>
   )
 }
