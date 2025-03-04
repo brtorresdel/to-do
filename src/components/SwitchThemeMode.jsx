@@ -33,24 +33,25 @@ function SwitchThemeMode({ onChangeAppTheme }) {
         }
     }
 
-    return <>
+    return <div>
         <button 
-        className='w-screen flex justify-end p-4'
-        onClick={changeButtonTheme}>
-            <div className={`${sunBg} flex justify-center items-center rounded-tl-lg rounded-bl-lg
-            w-1/17 h-1/19 min-w-18 min-h-12 max-w-20 max-h-14
-            `}>
+        className='w-screen flex justify-end p-4'>
+            <div 
+            className={`${sunBg} flex justify-center items-center rounded-tl-lg rounded-bl-lg
+            w-1/17 h-1/19 min-w-18 min-h-12 max-w-20 max-h-14`}
+            onClick={changeButtonTheme}>
                 <Sun 
                 className={`${sunColor} drop-shadow-basic size-9`}/>
             </div>
-            <div className={`${moonBg} size-12 flex justify-center items-center rounded-tr-lg rounded-br-lg
-            w-1/17 h-1/19 min-w-18 min-h-12 max-w-20 max-h-14
-            sm:w-1/10`}>
+            <div 
+            className={`${moonBg} size-12 flex justify-center items-center rounded-tr-lg rounded-br-lg
+            w-1/17 h-1/19 min-w-18 min-h-12 max-w-20 max-h-14 sm:w-1/10`}
+            onClick={changeButtonTheme}>
                 <Moon 
                 className={`${moonColor} dorp-shadow-basic size-9`}/>
             </div>
         </button>
-    </>
+    </div>
 }
 
 export default SwitchThemeMode;

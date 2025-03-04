@@ -18,7 +18,7 @@ function App() {
   }
 
   return (
-    <div className={`w-screen h-screen bg-back-light ${prefTheme} dark:bg-back-dark flex justify-center`}>
+    <div className={`w-screen h-screen bg-back-light ${prefTheme} dark:bg-back-dark flex-col`}>
       <SwitchThemeMode onChangeAppTheme={changeAppTheme}/>
       <Header />
       <Tasks />
