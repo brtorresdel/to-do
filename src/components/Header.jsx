@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { PlaySquare, Plus} from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 function Header() {
     return <div className="flex flex-row justify-evenly">
