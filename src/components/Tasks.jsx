@@ -1,9 +1,18 @@
 import { useState } from "react";
 
-function Tasks(props) {
-    return <div>
-        {props.tasks.map(task => <p>{task.title}</p>)}
+function Task({ task }) {
+    return <div
+    className="flex flex-col justify-items-start">
+        {task.title}
     </div>
 }
 
-export default Tasks;
+function TaskList({ tasks }) {
+    return <>
+        <div className="flex flex-col items-center">
+            {tasks.map(task => <Task key={task.id} task={task}/>)}
+        </div>
+    </>
+}
+
+export default TaskList;

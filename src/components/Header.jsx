@@ -4,15 +4,20 @@ import { Plus } from 'lucide-react';
 function Header() {
     return <div className="flex flex-row justify-evenly">
         <div
-        className="font-cookie text-6xl text-font-light dark:text-font-dark">
+        className="font-cookie font-medium text-font-light dark:text-font-dark
+        text-4xl md:text-6xl
+        ">
             To-Do list!
         </div>
         <button 
-        className="flex flex-row justify-center items-center text-2xl rounded-2xl pl-6 pr-6
+        className="flex flex-row justify-evenly items-center  
+        text-md pl-4 pr-4 rounded-[2vw]
+        md:text-2xl md:pl-6 md:pr-6 md:rounded-2xl
         bg-add-light dark:bg-add-dark 
         text-font-light dark:text-font-dark
         drop-shadow-md">
-            <Plus className="stroke-3"/> Nova Tarefa
+            <Plus className="size-sm stroke-1.5 md:size-md md:stroke-3"/>
+            <p>Nova Tarefa</p>
         </button>
     </div>
 }

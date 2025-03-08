@@ -48,7 +48,7 @@ function SwitchThemeMode({ onChangeAppTheme }) {
             w-1/17 h-1/19 min-w-18 min-h-12 max-w-20 max-h-14 sm:w-1/10`}
             onClick={changeButtonTheme}>
                 <Moon 
-                className={`${moonColor} dorp-shadow-basic size-9`}/>
+                className={`${moonColor} drop-shadow-basic size-9`}/>
             </div>
         </button>
     </div>
