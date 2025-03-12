@@ -2,9 +2,11 @@ import { useEffect } from "react";
 import { Plus } from 'lucide-react';
 
 function Header() {
-    return <div className="flex flex-row justify-evenly">
+    return <div className="w-2xl
+        flex flex-row justify-between">
         <div
-        className="font-cookie font-medium text-font-light dark:text-font-dark
+        className="font-cookie font-medium 
+        text-font-light dark:text-font-dark
         text-4xl md:text-6xl
         ">
             To-Do list!

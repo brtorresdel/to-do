@@ -49,4 +49,8 @@ class Task {
     setObservations(nObservations) {
         this.observations = nObservations;
     }
+
+    defineStatus() {
+        
+    }
 }
