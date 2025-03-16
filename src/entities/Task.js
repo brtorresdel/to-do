@@ -51,6 +51,15 @@ class Task {
     }
 
     defineStatus() {
-        
+        if(!this.hasDeadline) {
+            return 'Sem prazo';
+        } else {
+            let today = new Date();
+            if(today < this.deadline) {
+                return 'No prazo';
+            } else {
+                return 'Atrasada!';
+            }
+        }
     }
 }
