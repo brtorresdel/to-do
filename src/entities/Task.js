@@ -6,9 +6,10 @@ class Task {
         this.hasDeadline = hasDeadline;
         this.deadline = deadline;
         this.observations = observations;
+        this.done = false
     }
  
-    gettitle() {
+    getTitle() {
         return this.title;
     }
 
