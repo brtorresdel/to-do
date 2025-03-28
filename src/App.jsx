@@ -5,6 +5,7 @@ import Header from './components/Header';
 import TaskList from './components/Tasks';
 import FinishedTasks from './components/FinishedTasks';
 import uuid from 'uuid4';
+import NewTaskModal from './components/NewTaskModal';
 
 function App() {
 
@@ -53,6 +54,7 @@ function App() {
       <Header />
       <TaskList tasks={tasks} />
       <FinishedTasks />
+      <NewTaskModal />
     </div>
   )
 }
