@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 import SwitchThemeMode from './components/SwitchThemeMode';
-import Header from './components/Header';
+import Header from './components/header/Header';
 import TaskList from './components/Tasks';
 import FinishedTasks from './components/FinishedTasks';
 import uuid from 'uuid4';

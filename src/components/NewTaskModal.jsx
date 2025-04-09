@@ -12,7 +12,7 @@ function DataInput({ name, label }) {
 }
 
 function NewTaskModal() {
-    return <div className="w-full h-full bg-stone-950/50 absolute flex justify-center items-center" aria-modal='true'>
+    return <div className="hidden w-full h-full bg-stone-950/50 absolute flex justify-center items-center" aria-modal='true'>
         <div className=" w-2xl h-2xl
         bg-task-light dark:bg-task-dark shadow-lg rounded-md">
             <div className="bg-newTask-bar-light dark:bg-newTask-bar-dark rounded-tl-md rounded-tr-md flex flex-row justify-between items-center p-3
@@ -31,7 +31,7 @@ function NewTaskModal() {
                 <DataInput name='taskName' label='Nome da Tarefa (obrigatório)'/>
                 <DataInput name='description' label='Descrição'/>
                 <DataInput name='deadline' label='Prazo'/>
-                <input type="text" placeholder='Observações'/>
+                <DataInput name='observations' label='Observações'/>
             </div>
         </div>
     </div>
