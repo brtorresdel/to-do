@@ -1,21 +1,23 @@
 import './App.css'
-import { useState, createContext } from 'react';
+import { useState } from 'react';
 import ThemeSwitch from './components/ThemeSwitch';
-
-type Theme = 'light' | 'dark';
-const ThemeContext = createContext<Theme>('light');
+import { type Theme, ThemeContext } from './context/Theme';
 
 function App() {
   const [theme, setTheme] = useState<Theme>('light');
 
+  const changeTheme = () => setTheme(theme === "light" ? "dark" : "light");
+
+  const themeName: string = `bg-bg-${theme}`;
+
   return (
-    <ThemeContext value={theme}>
-      <div className={`h-screen w-screen bg-bg-${theme}`}>
-        <header>
+    <ThemeContext.Provider value={{theme, changeTheme}}>
+      <div className={`h-screen w-screen ${themeName}`}>
+        <header className='w-full h-1/16 p-5 content-center justify-items-end'>
           <ThemeSwitch />
         </header>
       </div>
-    </ThemeContext>
+    </ThemeContext.Provider>
   )
 }
 
