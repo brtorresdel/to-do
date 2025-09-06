@@ -8,7 +8,7 @@ function App() {
 
   const changeTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
-  const themeName: string = `bg-bg-${theme}`;
+  const themeName: string = theme === 'light' ? "bg-bg-light" : "bg-bg-dark";
 
   return (
     <ThemeContext.Provider value={{theme, changeTheme}}>
