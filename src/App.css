@@ -5,7 +5,7 @@
   --color-task-info-light: #D2D5DD;
   --color-task-edit-light: #b8bacf;
   --color-task-delete-light: #999ac6;
-  --color-new-task-light: ##00dd9e;
+  --color-new-task-light: #00dd9e;
   --color-font-light: #2a2b2a;
   
   --color-bg-dark: #2a2b2a;
@@ -13,6 +13,7 @@
   --color-task-edit-dark: #1f2041;
   --color-task-delete-dark: #4b3f72;
   --color-new-task-dark: #417b5a;
+  --color-font-dark: #f8f8f8;
 
   --color-sun-bg: #82C8E5;
   --color-sun-svg: #FFDF22;
@@ -21,4 +22,7 @@
 
   --color-theme-inactive-bg: #c2c2c2;
   --color-theme-inactive-svg: #FFFFFF;
+
+  --font-title: "Nothing You Could Do", cursive;
+  --default-font-family: "Noto Sans", sans-serif;
 }
