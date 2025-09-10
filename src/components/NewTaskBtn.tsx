@@ -1,10 +1,11 @@
 import { Plus } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
 
 interface css {
     bg: string;
     textColor: string;
+    svgColor: string;
 }
 
 
@@ -15,11 +16,13 @@ export default function NewTaskBtn() {
     const btnCss: css = {
         bg: theme === "light" ? "bg-new-task-light" : "bg-new-task-dark",
         textColor: theme === "light" ? "text-font-light" : "text-font-dark",
+        svgColor: theme === "light" ? "#2a2b2a" : "#f8f8f8"
     }
 
     return <button 
-    className={`${btnCss.bg} h-auto w-2/6 flex flex-row justify-center-safe gap-2`}>
-        <p className={`${btnCss.textColor}`}>Nova Tarefa</p> 
-        <Plus/>
+    className={`${btnCss.bg} h-auto w-3/8 p-3 rounded-lg flex flex-row justify-center-safe gap-2
+    hover:scale-105 hover:drop-shadow-xl active:scale-95 transition duration-150`}>
+        <p className={`${btnCss.textColor} text-xl`}>Nova Tarefa</p> 
+        <Plus color={`${btnCss.svgColor}`} size={25}/>
     </button>
 }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { type Theme, ThemeContext } from './context/Theme';
 import ThemeSwitch from './components/ThemeSwitch';
 import NewTaskBtn from './components/NewTaskBtn';
+import TaskList from './components/TaskList';
 
 function App() {
   const [theme, setTheme] = useState<Theme>('light');
@@ -19,13 +20,16 @@ function App() {
         <header className='w-full h-1/16 p-5 mb-10 content-center justify-items-end'>
           <ThemeSwitch />
         </header>
+        
         <div className=' w-1/2 flex flex-col'>
           <div className='h-auto w-full flex flex-row items-center justify-between '>
             <h1 
-              className={`font-title text-4xl  ${textTheme}`}>To-do list!</h1>
+              className={`font-title text-5xl ${textTheme}`}>To-do list!</h1>
               <NewTaskBtn />
           </div>
         </div>
+
+        <TaskList />
       </div>
     </ThemeContext.Provider>
   )
