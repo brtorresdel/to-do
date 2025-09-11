@@ -55,18 +55,18 @@ export default function TaskList() {
     return (
         <div className="w-1/2">
             {tasks.length > 0 ?
-                <ul className="flex-col">{tasks.map(task => <Task task={task} />)}</ul> :
+                <ul className="flex-col">{tasks.map(currentTask => <Task task={currentTask} />)}</ul> :
                 <p>Nenhuma tarefa localizada</p>
             }
         </div>
     )
 }
 
-function Task({ task }: { task: Task }) {
+function Task( task : Task) {
     return <li key={task.id} 
     className="bg-task-info-light w-full h-11 p-2 mt-3 rounded-md 
     transition duration-150 hover:border-blue-400 border-2 border-transparent">
         <input type="checkbox"/>
-        {task.title}
+        {task.title} - {task.description}
     </li>
 }
