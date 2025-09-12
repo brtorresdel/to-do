@@ -14,6 +14,7 @@
   --color-task-delete-dark: #4b3f72;
   --color-new-task-dark: #417b5a;
   --color-font-dark: #f8f8f8;
+  --color-border-dark: #a6a090;
 
   --color-sun-bg: #82C8E5;
   --color-sun-svg: #FFDF22;
@@ -29,4 +30,8 @@
   
   --font-title: "Nothing You Could Do", cursive;
   --default-font-family: "Noto Sans", sans-serif;
+}
+
+input[type="checkbox"] {
+  appearance: none;
 }
