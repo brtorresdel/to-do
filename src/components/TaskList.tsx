@@ -1,4 +1,6 @@
+import { ThemeContext, type ThemeContextType } from "../context/Theme";
 import { SquarePen, Trash2 } from "lucide-react";
+import { useContext } from "react";
 
 interface Task {
     id: number;
@@ -12,6 +14,17 @@ interface Task {
 interface statusCss {
     bgColor: string;
     text: string
+}
+
+interface taskListCss {
+    bg: string;
+    text: string;
+    border: string
+}
+
+interface actionBtnCss {
+    bg: string;
+    color: string
 }
 
 type TaskStatus = 1 | 2 | 3;
@@ -75,21 +88,30 @@ export default function TaskList() {
 
 function TaskListItem({ task }: { task: Task }) {
 
-    // TODO: update the item style to support dark mode
-    // TODO: style the checkbox items
+    const {theme}: ThemeContextType = useContext(ThemeContext);
+
+    // TODO: finish style the checkbox items
 
     const status: TaskStatus = !task.expirationDate ? 1 : new Date() > task.expirationDate ? 3 : 2;
 
+    const taskListCss: taskListCss = {
+        bg: theme === "light" ? "bg-task-info-light" : "bg-task-info-dark",
+        text: theme === "light" ? "text-font-light" : "text-font-dark",
+        border: theme === "light" ? "hover:border-blue-400" : "hover:border-border-dark"
+    }
+
     return <li key={task.id} 
-    className="bg-task-info-light w-full h-11 p-2 mt-3 rounded-md 
-    transition duration-150 hover:border-blue-400 hover:scale-101 border-2 border-transparent">
+    className={`${taskListCss.bg} w-full h-fit p-3 mt-3 rounded-md
+    flex flex-row justify-between items-center
+    transition duration-150 ${taskListCss.border} hover:scale-101 border-2 border-transparent`}>
         <div className="flex flex-row items-center gap-2">
-            <input type="checkbox" name="" id="" />
-            {task.title} 
+            <input type="checkbox" name="" id=""
+            className={`w-5 h-5 border-2 bg-transparent rounded-sm acce transition duration-150`}/>
+            <p className={`hover:underline hover:cursor-pointer ${taskListCss.text}`}>{task.title}</p> 
             <StatusInfo status={ status }/>
         </div>
         <div>
-            <ActionBtn taskId={task.id}/>
+            <ActionBtn taskId={task.id} theme={theme}/>
         </div>
     </li>
 }
@@ -118,19 +140,38 @@ function StatusInfo ({ status }: {status: TaskStatus} ) {
     )
 }
 
-function ActionBtn({taskId}: {taskId: number}) {
+function ActionBtn({taskId, theme}: {taskId: number, theme: string}) {
 
-    // TODO: update the buttons style to support dark mode
     // TODO: create function to use the taskId recieved from props
 
+    const editBtnCss: actionBtnCss =  {
+        bg: theme === "light" ? "bg-task-edit-light" : "bg-task-edit-dark",
+        color: theme === "light" ? "stroke-font-light" : "stroke-font-dark"
+    }
+
+    const deleteBtnCss: actionBtnCss = {
+        bg: theme === "light" ? "bg-task-delete-light" : "bg-task-delete-dark",
+        color: theme === "light" ? "stroke-font-light" : "stroke-font-dark"
+    }
+
     return (
-        <div>
-            <button>
-                <SquarePen />
-            </button>
-            <button>
-                <Trash2 />
-            </button>
+        <div className="flex flex-row gap-2">
+            <div className="relative group">
+                <button className={`${editBtnCss.bg} p-1 rounded-md transition duration-150 hover:scale-105`}>
+                    <SquarePen className={`${editBtnCss.color}`}/>
+                </button>
+                <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">
+                    Editar
+                </span>
+            </div>
+            <div className="relative group">
+                <button className={`${deleteBtnCss.bg} p-1 rounded-md transition duration-150 hover:scale-105`}>
+                    <Trash2 className={`${deleteBtnCss.color}`}/>
+                </button>
+                <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">
+                    Excluir
+                </span>
+            </div>
         </div>
     )
 }
