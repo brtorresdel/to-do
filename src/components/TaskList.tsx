@@ -1,5 +1,5 @@
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
-import { SquarePen, Trash2 } from "lucide-react";
+import { Check, SquarePen, Trash2 } from "lucide-react";
 import { useContext } from "react";
 
 interface Task {
@@ -9,6 +9,7 @@ interface Task {
     createdAt: Date;
     expirationDate: Date | null;
     observation: string | null
+    finished: boolean
 }
 
 interface statusCss {
@@ -19,7 +20,8 @@ interface statusCss {
 interface taskListCss {
     bg: string;
     text: string;
-    border: string
+    border: string;
+    check: string
 }
 
 interface actionBtnCss {
@@ -31,64 +33,27 @@ type TaskStatus = 1 | 2 | 3;
 
 export default function TaskList() {
 
+    const {theme}: ThemeContextType = useContext(ThemeContext);
+
     // TODO: useEffect to get the task list on the localStorage
 
-    const tasks: Task[] = [
-        {
-            id: 1,
-            title: "Comprar mantimentos",
-            description: "Arroz, feijão, leite e frutas",
-            createdAt: new Date("2025-08-15T10:00:00"),
-            expirationDate: new Date("2025-09-30T23:59:59"), // ainda no prazo
-            observation: null
-        },
-        {
-            id: 2,
-            title: "Pagar conta de luz",
-            description: null,
-            createdAt: new Date("2025-08-01T08:30:00"),
-            expirationDate: new Date("2025-08-10T23:59:59"), // já atrasada
-            observation: "Multa de 2% após vencimento"
-        },
-        {
-            id: 3,
-            title: "Revisar trabalho da faculdade",
-            description: "Conferir referências e ajustar formatação",
-            createdAt: new Date("2025-08-18T14:15:00"),
-            expirationDate: null, // sem prazo definido
-            observation: null
-        },
-        {
-            id: 4,
-            title: "Enviar relatório mensal",
-            description: "Relatório de desempenho da equipe",
-            createdAt: new Date("2025-07-30T09:00:00"),
-            expirationDate: new Date("2025-08-05T18:00:00"), // atrasada
-            observation: "Ficou pendente por falta de dados"
-        },
-        {
-            id: 5,
-            title: "Agendar consulta médica",
-            description: "Check-up anual",
-            createdAt: new Date("2025-08-19T16:00:00"),
-            expirationDate: new Date("2025-09-30T23:59:59"), // dentro do prazo
-            observation: null
-        }
-    ];
+    const tasks: Task[] = [];
 
     return (
         <div className="w-1/2">
             {tasks.length > 0 ?
-                <ul className="flex-col">{tasks.map(currentTask => <TaskListItem task={currentTask} />)}</ul> :
-                <p>Nenhuma tarefa localizada</p>
+                <ul className="flex-col">{tasks.map(currentTask => <TaskListItem task={currentTask} theme={theme}/>)}</ul> :
+                <div className="p-8 flex justify-center">
+                    <p className={`${theme === "light" ? "text-font-light" : "text-font-dark"}`}>Nenhuma tarefa cadastrada &#128531;</p>
+                </div>
             }
         </div>
     )
 }
 
-function TaskListItem({ task }: { task: Task }) {
+function TaskListItem({ task, theme }: { task: Task, theme: string }) {
 
-    const {theme}: ThemeContextType = useContext(ThemeContext);
+    
 
     // TODO: finish style the checkbox items
 
@@ -97,7 +62,8 @@ function TaskListItem({ task }: { task: Task }) {
     const taskListCss: taskListCss = {
         bg: theme === "light" ? "bg-task-info-light" : "bg-task-info-dark",
         text: theme === "light" ? "text-font-light" : "text-font-dark",
-        border: theme === "light" ? "hover:border-blue-400" : "hover:border-border-dark"
+        border: theme === "light" ? "hover:border-blue-400" : "hover:border-border-dark",
+        check: theme === "light" ? "border-font-light" : "border-font-dark"
     }
 
     return <li key={task.id} 
@@ -105,8 +71,12 @@ function TaskListItem({ task }: { task: Task }) {
     flex flex-row justify-between items-center
     transition duration-150 ${taskListCss.border} hover:scale-101 border-2 border-transparent`}>
         <div className="flex flex-row items-center gap-2">
-            <input type="checkbox" name="" id=""
-            className={`w-5 h-5 border-2 bg-transparent rounded-sm acce transition duration-150`}/>
+            <div className={`bg-transparent border-2 rounded-md w-6 h-6 flex content-center items-center
+                ${theme === "light" ? "border-font-light" : "border-font-dark"}`}>
+                <Check 
+                className={`opacity-0 hover:opacity-50 transition duration-150
+                ${theme === "light" ? "stroke-font-light" : "stroke-font-dark"}`}/>
+            </div>
             <p className={`hover:underline hover:cursor-pointer ${taskListCss.text}`}>{task.title}</p> 
             <StatusInfo status={ status }/>
         </div>
@@ -157,7 +127,7 @@ function ActionBtn({taskId, theme}: {taskId: number, theme: string}) {
     return (
         <div className="flex flex-row gap-2">
             <div className="relative group">
-                <button className={`${editBtnCss.bg} p-1 rounded-md transition duration-150 hover:scale-105`}>
+                <button className={`${editBtnCss.bg} p-1 rounded-md transition duration-150 hover:scale-105 cursor-pointer`}>
                     <SquarePen className={`${editBtnCss.color}`}/>
                 </button>
                 <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">
@@ -165,7 +135,7 @@ function ActionBtn({taskId, theme}: {taskId: number, theme: string}) {
                 </span>
             </div>
             <div className="relative group">
-                <button className={`${deleteBtnCss.bg} p-1 rounded-md transition duration-150 hover:scale-105`}>
+                <button className={`${deleteBtnCss.bg} p-1 rounded-md transition duration-150 hover:scale-105 cursor-pointer`}>
                     <Trash2 className={`${deleteBtnCss.color}`}/>
                 </button>
                 <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">
