@@ -1,33 +1,7 @@
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
-import { Check, SquarePen, Trash2 } from "lucide-react";
+import { Check , SquarePen , Trash2 } from "lucide-react";
 import { useContext } from "react";
-
-interface Task {
-    id: number;
-    title: string;
-    description: string | null;
-    createdAt: Date;
-    expirationDate: Date | null;
-    observation: string | null
-    finished: boolean
-}
-
-interface statusCss {
-    bgColor: string;
-    text: string
-}
-
-interface taskListCss {
-    bg: string;
-    text: string;
-    border: string;
-    check: string
-}
-
-interface actionBtnCss {
-    bg: string;
-    color: string
-}
+import type { Task , statusCss , taskListCss , actionBtnCss } from '../interfaces/task';
 
 type TaskStatus = 1 | 2 | 3;
 
