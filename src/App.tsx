@@ -4,6 +4,7 @@ import { type Theme, ThemeContext } from './context/Theme';
 import ThemeSwitch from './components/ThemeSwitch';
 import NewTaskBtn from './components/NewTaskBtn';
 import TaskList from './components/TaskList';
+import FinishedTasksBtn from './components/FinishedTasksBtn';
 
 function App() {
   const [theme, setTheme] = useState<Theme>('light');
@@ -30,6 +31,10 @@ function App() {
         </div>
 
         <TaskList />
+        
+        <div className=' w-1/2 flex flex-col'>
+          <FinishedTasksBtn />
+        </div>
       </div>
     </ThemeContext.Provider>
   )
