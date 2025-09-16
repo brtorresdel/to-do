@@ -36,6 +36,7 @@ export default function TaskList() {
     const {theme}: ThemeContextType = useContext(ThemeContext);
 
     // TODO: useEffect to get the task list on the localStorage
+    // TODO: adjust the div to have a min height
 
     const tasks: Task[] = [];
 
@@ -52,10 +53,6 @@ export default function TaskList() {
 }
 
 function TaskListItem({ task, theme }: { task: Task, theme: string }) {
-
-    
-
-    // TODO: finish style the checkbox items
 
     const status: TaskStatus = !task.expirationDate ? 1 : new Date() > task.expirationDate ? 3 : 2;
 

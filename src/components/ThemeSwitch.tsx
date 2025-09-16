@@ -32,41 +32,19 @@ export default function ThemeSwitch() {
     });
 
     const ToggleTheme = useCallback(() => {
-        changeTheme();
+        const nextTheme = theme === "light" ? "dark" : "light";
         playSwitchSound();
-        switch(theme) {
-            case 'dark':
-                setSunCss({
-                    bg: 'bg-sun-bg', 
-                    bg_shadow: "",
-                    color: 'stroke-sun-svg', 
-                    fill: 'fill-sun-svg'
-                });
-                setMoonCss({
-                    bg: 'bg-theme-inactive-bg', 
-                    bg_shadow: "inset-shadow-black-500/50",
-                    color: 'stroke-theme-inactive-svg', 
-                    fill: 'fill-theme-inactive-svg'
-                });
-                return;
-            case 'light':
-                setSunCss({
-                    bg: 'bg-theme-inactive-bg', 
-                    bg_shadow: "inset-shadow-black-500/50",
-                    color: 'stroke-theme-inactive-svg', 
-                    fill: 'fill-theme-inactive-svg'
-                });
-                setMoonCss({
-                    bg: 'bg-moon-bg', 
-                    bg_shadow: "",
-                    color: 'stroke-moon-svg', 
-                    fill: 'fill-moon-svg'
-                });
-                return;
-            default:
-                return;
+
+        if (nextTheme === "light") {
+            setSunCss({ bg: 'bg-sun-bg', bg_shadow: "", color: 'stroke-sun-svg', fill: 'fill-sun-svg' });
+            setMoonCss({ bg: 'bg-theme-inactive-bg', bg_shadow: "inset-shadow-black-500/50", color: 'stroke-theme-inactive-svg', fill: 'fill-theme-inactive-svg' });
+        } else {
+            setSunCss({ bg: 'bg-theme-inactive-bg', bg_shadow: "inset-shadow-black-500/50", color: 'stroke-theme-inactive-svg', fill: 'fill-theme-inactive-svg' });
+            setMoonCss({ bg: 'bg-moon-bg', bg_shadow: "", color: 'stroke-moon-svg', fill: 'fill-moon-svg' });
         }
-    }, [theme, changeTheme]);
+
+        changeTheme();
+    }, [theme, changeTheme, playSwitchSound]);
 
     return (
         <div>
