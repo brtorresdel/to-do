@@ -5,6 +5,7 @@ import ThemeSwitch from './components/ThemeSwitch';
 import NewTaskBtn from './components/NewTaskBtn';
 import TaskList from './components/TaskList';
 import FinishedTasksBtn from './components/FinishedTasksBtn';
+import TaskModal from './components/TaskModal';
 
 function App() {
   const [theme, setTheme] = useState<Theme>('light');
@@ -36,6 +37,7 @@ function App() {
           <FinishedTasksBtn />
         </div>
       </div>
+      <TaskModal />
     </ThemeContext.Provider>
   )
 }
