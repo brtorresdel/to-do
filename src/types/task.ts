@@ -1,0 +1,21 @@
+type Task = {
+    id: number;
+    title: string;
+    description: string | null;
+    createdAt: Date;
+    expirationDate: Date | null;
+    observation: string | null
+    finished: boolean
+};
+
+type TaskModalProps = {
+    taskID: number | null
+};
+
+type TaskInfoProps = {
+    taskID: number | null
+}
+
+type TaskStatus = 1 | 2 | 3;
+
+export type { Task , TaskModalProps , TaskStatus, TaskInfoProps};
