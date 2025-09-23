@@ -26,4 +26,10 @@ type taskFormCss = {
     border: string;
 }
 
-export type { statusCss, taskListCss, actionBtnCss, taskInfoCss, taskFormCss};
+type inputCss = {
+    bg: string;
+    text: string;
+    border: string;
+}
+
+export type { statusCss, taskListCss, actionBtnCss, taskInfoCss, taskFormCss, inputCss };

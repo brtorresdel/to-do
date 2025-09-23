@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react';
+import { useState, type SetStateAction } from 'react';
 import { type Theme, ThemeContext } from './context/Theme';
 import ThemeSwitch from './components/ThemeSwitch';
 import NewTaskBtn from './components/NewTaskBtn';
@@ -9,12 +9,20 @@ import TaskModal from './components/TaskModal';
 
 function App() {
   const [theme, setTheme] = useState<Theme>('light');
-
   const changeTheme = () => setTheme(theme === "light" ? "dark" : "light");
-
   const themeBg: string = theme === 'light' ? "bg-bg-light" : "bg-bg-dark";
-
   const textTheme: string = theme === 'light' ? "text-font-light" : "text-font-dark";
+
+  const [modalHiddenView, setModalHiddenView] = useState<boolean>(true);
+  const [taskID, setTaskID] = useState<number | null>(null);
+  const newTaskForm = () => setModalHiddenView(false);
+
+  const closeModal = () => setModalHiddenView(true);
+
+  const taskInfoForm = (taskID: number) => {
+    setTaskID(taskID);
+    setModalHiddenView(false);
+  };
 
   return (
     <ThemeContext.Provider value={{theme, changeTheme}}>
@@ -27,7 +35,7 @@ function App() {
           <div className='h-auto w-full flex flex-row items-center justify-between '>
             <h1 
               className={`font-title text-5xl ${textTheme}`}>To-do list!</h1>
-              <NewTaskBtn />
+              <NewTaskBtn onClick={newTaskForm} />
           </div>
         </div>
 
@@ -37,7 +45,7 @@ function App() {
           <FinishedTasksBtn />
         </div>
       </div>
-      <TaskModal />
+      <TaskModal taskID={taskID} hidden={modalHiddenView} closeModal={closeModal}/>
     </ThemeContext.Provider>
   )
 }

@@ -9,7 +9,9 @@ type Task = {
 };
 
 type TaskModalProps = {
-    taskID: number | null
+    taskID: number | null;
+    hidden: boolean;
+    closeModal: () => void
 };
 
 type TaskInfoProps = {
