@@ -7,9 +7,9 @@ import type { TaskInfoProps } from "../types/task";
 
 
 
-export default function TaskInfo( {taskID}: TaskInfoProps ) {
+export default function TaskInfo( {taskID, closeModal}: {taskID: TaskInfoProps, closeModal: () => void} ) {
     // TODO: add props with the task info
-    // TODO: create the function to close the modal
+    // TODO: change the CSS to include dark mode
 
     const { theme }: ThemeContextType = useContext(ThemeContext);
 
@@ -23,7 +23,7 @@ export default function TaskInfo( {taskID}: TaskInfoProps ) {
         <div className="flex flex-row flex-nowrap justify-between">
             <h1 className={`text-2xl font-bold ${taskInfoCss.text}`}>Título da tarefa</h1>
             <div className="group relative">
-                <X className="hover:scale-130 transform duration-150"/>
+                <X className="hover:scale-130 transform duration-150" onClick={closeModal}/>
                 <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">
                     Fechar
                 </span>
