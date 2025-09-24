@@ -1,4 +1,4 @@
-import type { TaskInfoProps, TaskModalProps } from "../types/task";
+import type { TaskModalProps } from "../types/task";
 import TaskForm from "./TaskForm";
 import TaskInfo from "./TaskInfo";
 

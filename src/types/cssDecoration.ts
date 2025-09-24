@@ -32,4 +32,10 @@ type inputCss = {
     border: string;
 }
 
-export type { statusCss, taskListCss, actionBtnCss, taskInfoCss, taskFormCss, inputCss };
+type btnCss = {
+    bg: string;
+    textColor: string;
+    svgColor: string;
+}
+
+export type { statusCss, taskListCss, actionBtnCss, taskInfoCss, taskFormCss, inputCss, btnCss };

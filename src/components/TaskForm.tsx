@@ -1,6 +1,6 @@
 import { Plus, X } from "lucide-react";
 import type { TaskInfoProps } from "../types/task";
-import type { taskFormCss, inputCss } from "../types/cssDecoration";
+import type { taskFormCss, inputCss, btnCss } from "../types/cssDecoration";
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
 import { useContext } from "react";
 
@@ -17,6 +17,12 @@ export default function TaskForm ({ taskID, closeModal }: { taskID: TaskInfoProp
         border: theme === "light" ? "border-font-light" : "border-font-dark"
     }
 
+    const btnCss: btnCss = {
+        bg: theme === "light" ? "bg-new-task-light" : "bg-new-task-dark",
+        textColor: theme === "light" ? "text-font-light" : "text-font-dark",
+        svgColor: theme === "light" ? "#2a2b2a" : "#f8f8f8"
+    }
+
     return (
         <div className={`w-1/2 h-fit rounded-md opacity-100 p-5 flex flex-col shadow-mg gap-2 ${taskFormCss.bg}`}>
             <div className="flex flex-row flex-nowrap justify-between w-full items-center">
@@ -24,7 +30,7 @@ export default function TaskForm ({ taskID, closeModal }: { taskID: TaskInfoProp
                     {!taskID ? "Nova tarefa" : "Editar tarefa"}
                 </h1>
                 <div>
-                    <X className="hover:scale-130 transform duration-150" onClick={closeModal}/>
+                    <X className="hover:scale-130 transform duration-150" onClick={closeModal} color={btnCss.svgColor}/>
                     <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">
                         Fechar
                     </span>
@@ -36,9 +42,9 @@ export default function TaskForm ({ taskID, closeModal }: { taskID: TaskInfoProp
                 <InputElem name="descrição" required={true} theme={theme} />
                 <InputElem name="observações" required={false} theme={theme} />
                 <div>
-                    <button className="bg-new-task-light h-auto w-full p-3 rounded-lg flex flex-row justify-center-safe gap-2
-                    hover:scale-102 hover:drop-shadow-xl active:scale-95 transition duration-150">
-                    Adicionar tarefa <Plus />
+                    <button className={`${btnCss.bg} h-auto w-full p-3 rounded-lg flex flex-row justify-center-safe gap-2
+                    hover:scale-102 hover:drop-shadow-xl active:scale-95 transition duration-150`}>
+                    <span className={btnCss.textColor}>Adicionar tarefa</span> <Plus color={btnCss.svgColor}/>
                 </button>
                 </div>
             </form>
@@ -47,7 +53,6 @@ export default function TaskForm ({ taskID, closeModal }: { taskID: TaskInfoProp
 }
 
 function InputElem ( {name, required, value, theme}: {name: string, required: boolean, value?: string, theme: "light" | "dark"} ) {
-    // TODO: use the theme prop to change the CSS
     // TODO: add the required function to validade the data entry
     
     const capitalize = name.charAt(0).toUpperCase() + name.slice(1);

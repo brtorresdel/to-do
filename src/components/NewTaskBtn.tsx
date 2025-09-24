@@ -1,19 +1,14 @@
 import { Plus } from "lucide-react";
 import { useContext } from "react";
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
-
-interface css {
-    bg: string;
-    textColor: string;
-    svgColor: string;
-}
+import type { btnCss } from "../types/cssDecoration";
 
 type NewTaskBtnProps = { onClick: () => void }
 
 export default function NewTaskBtn({onClick}: NewTaskBtnProps) {
     const {theme}: ThemeContextType = useContext(ThemeContext); 
 
-    const btnCss: css = {
+    const btnCss: btnCss = {
         bg: theme === "light" ? "bg-new-task-light" : "bg-new-task-dark",
         textColor: theme === "light" ? "text-font-light" : "text-font-dark",
         svgColor: theme === "light" ? "#2a2b2a" : "#f8f8f8"
