@@ -18,6 +18,6 @@ type TaskInfoProps = {
     taskID: number | null
 }
 
-type TaskStatus = 1 | 2 | 3;
+type TaskStatus = 1 | 2 | 3 | 4;
 
 export type { Task , TaskModalProps , TaskStatus, TaskInfoProps};

@@ -16,6 +16,9 @@ export default function StatusInfo ({ status }: {status: TaskStatus} ) {
         case 3:
             statusCss = { bgColor: "bg-status-overdue", text: "Atrasada" };
             break;
+
+        case 4:
+            statusCss = {bgColor: "bg-status-finished", text: "Finalizada"};
     }
 
     return (
