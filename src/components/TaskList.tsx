@@ -32,7 +32,10 @@ export default function TaskList() {
 
 function TaskListItem({ task, theme }: { task: Task, theme: string }) {
 
-    const status: TaskStatus = !task.expirationDate ? 1 : new Date() > task.expirationDate ? 3 : 2;
+    const status: TaskStatus = task.finished ? 4 :
+    !task.expirationDate ? 1 : 
+    new Date() > task.expirationDate ? 3 
+    : 2;
 
     const taskListCss: taskListCss = {
         bg: theme === "light" ? "bg-task-info-light" : "bg-task-info-dark",

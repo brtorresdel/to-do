@@ -27,6 +27,7 @@
   --color-status-no-deadline: #85029F;
   --color-status-on-date: #12029F;
   --color-status-overdue: #FC0000;
+  --color-status-finished: #1DBC60;
   
   --font-title: "Nothing You Could Do", cursive;
   --default-font-family: "Noto Sans", sans-serif;
