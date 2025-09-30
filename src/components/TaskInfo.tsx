@@ -19,9 +19,9 @@ export default function TaskInfo( {taskID, closeModal}: {taskID: TaskInfoProps, 
     }
 
     return <div className={`w-1/2 h-fit rounded-md opacity-100 p-5 flex flex-col shadow-mg gap-4 
-    ${taskInfoCss.bg} hidden`}>
+    ${taskInfoCss.bg}`}>
         <div className="flex flex-row flex-nowrap justify-between">
-            <h1 className={`text-2xl font-bold ${taskInfoCss.text}`}>Título da tarefa</h1>
+            <h1 className={`text-2xl font-bold ${taskInfoCss.text}`}>{}</h1>
             <div className="group relative">
                 <X className="hover:scale-130 transform duration-150" onClick={closeModal}/>
                 <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none z-10">

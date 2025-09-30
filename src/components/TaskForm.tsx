@@ -1,15 +1,13 @@
 import { Plus, X } from "lucide-react";
-import type { TaskInfoProps } from "../types/task";
+import type { Task } from "../types/task";
 import type { taskFormCss, inputCss, btnCss } from "../types/cssDecoration";
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
 import { useContext, useState } from "react";
 
-export default function TaskForm ({ taskID, closeModal }: { taskID: TaskInfoProps, closeModal: () => void }) {
+export default function TaskForm ({ task, closeModal }: { task: Task, closeModal: () => void }) {
     // TODO: create the function to add the task to the localStorage list
     // TODO: add the close tab span
     // TODO: change the close btn color to respect dark mode
-
-    
 
     const [title, setTitle] = useState("");
     const [dueDate, setDueDate] = useState("");
@@ -61,7 +59,7 @@ export default function TaskForm ({ taskID, closeModal }: { taskID: TaskInfoProp
         <div className={`w-1/2 h-fit rounded-md opacity-100 p-5 flex flex-col shadow-mg gap-2 ${taskFormCss.bg}`}>
             <div className="flex flex-row flex-nowrap justify-between w-full items-center">
                 <h1 className={`text-2xl font-bold ${taskFormCss.text}`}>
-                    {!taskID ? "Nova tarefa" : "Editar tarefa"}
+                    {!task ? "Nova tarefa" : "Editar tarefa"}
                 </h1>
                 <div>
                     <X className="hover:scale-130 transform duration-150" onClick={resetModal} color={btnCss.svgColor}/>
@@ -72,9 +70,9 @@ export default function TaskForm ({ taskID, closeModal }: { taskID: TaskInfoProp
             </div>
             <form className="w-full flex flex-col gap-2">
                 <InputElem name="título" required={true} theme={theme} value={title} onChange={(value) => setTitle(value)}/>
-                <InputElem name="prazo" required={false} theme={theme} value={dueDate} onChange={(value) => setDueDate(value)}/>
-                <InputElem name="descrição" required={true} theme={theme} value={description} onChange={(value) => setDescription(value)}/>
-                <InputElem name="observações" required={false} theme={theme} value={observations} onChange={(value) => setObservations(value)}/>
+                <InputElem name="prazo" required={false} theme={theme} value={dueDate} onChange={value => setDueDate(value)}/>
+                <InputElem name="descrição" required={true} theme={theme} value={description} onChange={value => setDescription(value)}/>
+                <InputElem name="observações" required={false} theme={theme} value={observations} onChange={value => setObservations(value)}/>
                 <div>
                     <button 
                     className={`${btnCss.bg} h-auto w-full p-3 rounded-lg flex flex-row justify-center-safe gap-2
@@ -116,12 +114,11 @@ function InputElem ( {name, required, value, theme, onChange}: {name: string, re
             />
         :
             <input 
-                type={name !== "prazo" ? "text" : "date"} 
-                name={name} 
-                placeholder={capitalize}
-                className={`w-full border-1 m-0.25 ${inputCss.border} ${inputCss.text} ${inputCss.bg} rounded-lg p-1.5 focus:border-2 focus:m-0 transition duration-200`}
-                value={value ? value : ""}
-                onChange={e => onChange(e.target.value)}
-            />}
+            type={name !== "prazo" ? "text" : "date"} 
+            name={name} 
+            placeholder={capitalize}
+            className={`w-full border-1 m-0.25 ${inputCss.border} ${inputCss.text} ${inputCss.bg} rounded-lg p-1.5 focus:border-2 focus:m-0 transition duration-200`}
+            value={value ? value : ""}
+            onChange={e => onChange(e.target.value)}/>}
     </div>
 }
