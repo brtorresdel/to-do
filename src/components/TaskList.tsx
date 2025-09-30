@@ -1,4 +1,5 @@
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
+import { type TaskInfo, TaskInfoContext } from "../context/TaskInfo";
 import { Check } from "lucide-react";
 import { useContext } from "react";
 import ActionBtn from "./tools/ActionBtn";
@@ -9,14 +10,10 @@ import type { taskListCss } from '../types/cssDecoration';
 
 
 
-export default function TaskList() {
+export default function TaskList({tasks}: {tasks: Task[]}) {
 
     const {theme}: ThemeContextType = useContext(ThemeContext);
-
-    // TODO: useEffect to get the task list on the localStorage
     // TODO: adjust the div to have a min height
-
-    const tasks: Task[] = [];
 
     return (
         <div className="w-1/2">
@@ -31,6 +28,8 @@ export default function TaskList() {
 }
 
 function TaskListItem({ task, theme }: { task: Task, theme: string }) {
+
+    const { seeTask }: TaskInfo = useContext(TaskInfoContext); 
 
     const status: TaskStatus = task.finished ? 4 :
     !task.expirationDate ? 1 : 
@@ -55,7 +54,9 @@ function TaskListItem({ task, theme }: { task: Task, theme: string }) {
                 className={`opacity-0 hover:opacity-50 transition duration-150
                 ${theme === "light" ? "stroke-font-light" : "stroke-font-dark"}`}/>
             </div>
-            <p className={`hover:underline hover:cursor-pointer ${taskListCss.text}`}>{task.title}</p> 
+            <p 
+            className={`hover:underline hover:cursor-pointer ${taskListCss.text}`}
+            onClick={() => seeTask(task.id)}>{task.title}</p> 
             <StatusInfo status={ status }/>
         </div>
         <div>

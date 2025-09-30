@@ -1,11 +1,13 @@
 import './App.css'
-import { useState, type SetStateAction } from 'react';
+import { useEffect, useState, type SetStateAction } from 'react';
 import { type Theme, ThemeContext } from './context/Theme';
+import { type TaskInfo, TaskInfoContext } from './context/TaskInfo';
 import ThemeSwitch from './components/ThemeSwitch';
 import NewTaskBtn from './components/NewTaskBtn';
 import TaskList from './components/TaskList';
 import FinishedTasksBtn from './components/FinishedTasksBtn';
 import TaskModal from './components/TaskModal';
+import type { Task } from './types/task';
 
 function App() {
   const [theme, setTheme] = useState<Theme>('light');
@@ -17,12 +19,23 @@ function App() {
   const [taskID, setTaskID] = useState<number | null>(null);
   const newTaskForm = () => setModalHiddenView(false);
 
-  const closeModal = () => setModalHiddenView(true);
+  const closeModal = () => {
+    setModalHiddenView(true);
+    setTaskID(null);
+  };
 
   const taskInfoForm = (taskID: number) => {
     setTaskID(taskID);
+    console.log(taskID);
     setModalHiddenView(false);
   };
+
+  const [taskListLS, setTaskListLS] = useState<Task[]>([]);
+
+  useEffect(() => {
+    const ls = localStorage.getItem('taskList');
+    setTaskListLS(ls ? JSON.parse(ls) : []);
+  }, []); 
 
   return (
     <ThemeContext.Provider value={{theme, changeTheme}}>
@@ -39,7 +52,9 @@ function App() {
           </div>
         </div>
 
-        <TaskList />
+        <TaskInfoContext.Provider value={{taskID: taskID, seeTask: (id: number) => taskInfoForm(id)}}>
+          <TaskList tasks={taskListLS}/>
+        </TaskInfoContext.Provider>
         
         <div className=' w-1/2 flex flex-col'>
           <FinishedTasksBtn />
