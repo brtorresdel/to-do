@@ -11,7 +11,7 @@ interface css {
     fill: string,
 }
 
-export default function ThemeSwitch() {
+export default function ThemeSwitch(): React.ReactElement {
 
     const [playSwitchSound] = useSound(switchSound);
 
