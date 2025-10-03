@@ -3,8 +3,8 @@ type Task = {
     title: string;
     description: string | null;
     createdAt: Date;
-    expirationDate: Date | null;
-    observation: string | null
+    deadline: Date | null;
+    observations: string | null
     finished: boolean
 };
 

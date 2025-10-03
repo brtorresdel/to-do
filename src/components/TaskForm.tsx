@@ -4,7 +4,7 @@ import type { taskFormCss, inputCss, btnCss } from "../types/cssDecoration";
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
 import { useContext, useState } from "react";
 
-export default function TaskForm ({ task, closeModal }: { task: Task, closeModal: () => void }) {
+export default function TaskForm({ task, close }: { task: Task, close: () => void }): React.ReactElement {
     // TODO: create the function to add the task to the localStorage list
     // TODO: add the close tab span
     // TODO: change the close btn color to respect dark mode
@@ -29,7 +29,7 @@ export default function TaskForm ({ task, closeModal }: { task: Task, closeModal
     }
 
     const resetModal = () => {
-        closeModal();
+        close();
         setTitle("");
         setDueDate("");
         setDescription("");

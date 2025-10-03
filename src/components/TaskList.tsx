@@ -7,16 +7,13 @@ import StatusInfo from "./tools/StatusInfo";
 import type { Task, TaskStatus } from '../types/task';
 import type { taskListCss } from '../types/cssDecoration';
 
-
-
-
-export default function TaskList({tasks}: {tasks: Task[]}) {
+export default function TaskList({tasks}: {tasks: Task[]}): React.ReactElement {
 
     const {theme}: ThemeContextType = useContext(ThemeContext);
     // TODO: adjust the div to have a min height
 
     return (
-        <div className="w-1/2">
+        <div className="w-1/2 pb-3">
             {tasks.length > 0 ?
                 <ul className="flex-col">{tasks.map(currentTask => <TaskListItem task={currentTask} theme={theme}/>)}</ul> :
                 <div className="p-8 flex justify-center">
@@ -27,13 +24,13 @@ export default function TaskList({tasks}: {tasks: Task[]}) {
     )
 }
 
-function TaskListItem({ task, theme }: { task: Task, theme: string }) {
+function TaskListItem({ task, theme }: { task: Task, theme: string }): React.ReactElement {
 
     const { seeTask }: TaskInfo = useContext(TaskInfoContext); 
 
     const status: TaskStatus = task.finished ? 4 :
-    !task.expirationDate ? 1 : 
-    new Date() > task.expirationDate ? 3 
+    !task.deadline ? 1 : 
+    new Date() > task.deadline ? 3 
     : 2;
 
     const taskListCss: taskListCss = {

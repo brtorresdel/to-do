@@ -1,7 +1,7 @@
 import type { actionBtnCss } from "../../types/cssDecoration";
 import { SquarePen, Trash2 } from "lucide-react";
 
-export default function ActionBtn({taskId, theme}: {taskId: number, theme: string}) {
+export default function ActionBtn({taskId, theme}: {taskId: number, theme: string}): React.ReactElement {
 
     // TODO: create function to use the taskId recieved from props
 
