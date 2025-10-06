@@ -3,8 +3,10 @@ import type { Task } from "../types/task";
 import type { taskFormCss, inputCss, btnCss } from "../types/cssDecoration";
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
 import { useContext, useState } from "react";
+import Modal from "./tools/Modal";
+import { TaskLS } from "../class/task";
 
-export default function TaskForm({ task, close }: { task: Task, close: () => void }): React.ReactElement {
+export default function TaskForm({ task, close, hidden }: { task?: Task, close: () => void, hidden: boolean }): React.ReactElement {
     // TODO: create the function to add the task to the localStorage list
     // TODO: add the close tab span
     // TODO: change the close btn color to respect dark mode
@@ -38,25 +40,32 @@ export default function TaskForm({ task, close }: { task: Task, close: () => voi
 
     const newTask = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-
-        const taskListStr = localStorage.getItem('taskList');
-        const taskListLS = taskListStr ? JSON.parse(taskListStr) : [];
-
-        const newId: number = taskListLS.length > 0 ? taskListLS[taskListLS.length - 1].id + 1 : 1;
-
-        taskListLS.push({
-            id: newId,
+        TaskLS.addTask({
             title: title,
-            dueDate: dueDate !== "" ? new Date(dueDate) : null,
+            deadline: dueDate !== "" ? new Date(dueDate) : null,
             description: description,
-            observations: observations !== "" ? observations : null
+            observations: observations !== "" ? observations : null,
+            finished: false
         })
-        localStorage.setItem('taskList', JSON.stringify(taskListLS));
+        resetModal();
+    }
+
+    const editTask = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        TaskLS.updateTask({
+            title: title,
+            deadline: dueDate !== "" ? new Date(dueDate) : null,
+            description: description,
+            observations: observations !== "" ? observations : null,
+            finished: false
+        });
         resetModal();
     }
 
     return (
-        <div className={`w-1/2 h-fit rounded-md opacity-100 p-5 flex flex-col shadow-mg gap-2 ${taskFormCss.bg}`}>
+        hidden ? (
+            <Modal>
+                <div className={`w-1/2 h-fit rounded-md opacity-100 p-5 flex flex-col shadow-mg gap-2 ${taskFormCss.bg}`}>
             <div className="flex flex-row flex-nowrap justify-between w-full items-center">
                 <h1 className={`text-2xl font-bold ${taskFormCss.text}`}>
                     {!task ? "Nova tarefa" : "Editar tarefa"}
@@ -83,6 +92,8 @@ export default function TaskForm({ task, close }: { task: Task, close: () => voi
                 </div>
             </form>
         </div>
+            </Modal>
+        ) : (<></>)
     )
 }
 

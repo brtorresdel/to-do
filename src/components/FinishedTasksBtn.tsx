@@ -9,7 +9,7 @@ interface css {
 }
 
 
-export default function FinishedTasksBtn() {
+export default function FinishedTasksBtn(): React.ReactElement {
 
     const {theme}: ThemeContextType = useContext(ThemeContext); 
     

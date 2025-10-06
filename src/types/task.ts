@@ -1,8 +1,8 @@
 type Task = {
-    id: number;
+    id?: number;
     title: string;
     description: string | null;
-    createdAt: Date;
+    createdAt?: Date;
     deadline: Date | null;
     observations: string | null
     finished: boolean
