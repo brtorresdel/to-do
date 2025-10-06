@@ -5,7 +5,7 @@ import type { btnCss } from "../types/cssDecoration";
 
 type NewTaskBtnProps = { onClick: () => void }
 
-export default function NewTaskBtn({onClick}: NewTaskBtnProps) {
+export default function NewTaskBtn({onClick}: NewTaskBtnProps): React.ReactElement {
     const {theme}: ThemeContextType = useContext(ThemeContext); 
 
     const btnCss: btnCss = {

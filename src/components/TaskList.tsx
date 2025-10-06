@@ -1,5 +1,4 @@
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
-import { type TaskInfo, TaskInfoContext } from "../context/TaskInfo";
 import { Check } from "lucide-react";
 import { useContext } from "react";
 import ActionBtn from "./tools/ActionBtn";
@@ -7,7 +6,7 @@ import StatusInfo from "./tools/StatusInfo";
 import type { Task, TaskStatus } from '../types/task';
 import type { taskListCss } from '../types/cssDecoration';
 
-export default function TaskList({tasks}: {tasks: Task[]}): React.ReactElement {
+export default function TaskList({tasks, viewTask}: {tasks: Task[], viewTask: (task: Task) => void}): React.ReactElement {
 
     const {theme}: ThemeContextType = useContext(ThemeContext);
     // TODO: adjust the div to have a min height
@@ -15,7 +14,7 @@ export default function TaskList({tasks}: {tasks: Task[]}): React.ReactElement {
     return (
         <div className="w-1/2 pb-3">
             {tasks.length > 0 ?
-                <ul className="flex-col">{tasks.map(currentTask => <TaskListItem task={currentTask} theme={theme}/>)}</ul> :
+                <ul className="flex-col">{tasks.map(currentTask => <TaskListItem task={currentTask} viewTask={(currentTask) => viewTask(currentTask)} theme={theme}/>)}</ul> :
                 <div className="p-8 flex justify-center">
                     <p className={`${theme === "light" ? "text-font-light" : "text-font-dark"}`}>Nenhuma tarefa cadastrada &#128531;</p>
                 </div>
@@ -24,9 +23,7 @@ export default function TaskList({tasks}: {tasks: Task[]}): React.ReactElement {
     )
 }
 
-function TaskListItem({ task, theme }: { task: Task, theme: string }): React.ReactElement {
-
-    const { seeTask }: TaskInfo = useContext(TaskInfoContext); 
+function TaskListItem({ task, viewTask, theme }: { task: Task, viewTask: (task: Task) => void, theme: string }): React.ReactElement {
 
     const status: TaskStatus = task.finished ? 4 :
     !task.deadline ? 1 : 
@@ -38,6 +35,11 @@ function TaskListItem({ task, theme }: { task: Task, theme: string }): React.Rea
         text: theme === "light" ? "text-font-light" : "text-font-dark",
         border: theme === "light" ? "hover:border-blue-400" : "hover:border-border-dark",
         check: theme === "light" ? "border-font-light" : "border-font-dark"
+    }
+
+    const seeTask = (e: React.MouseEvent, task: Task) => {
+        e.preventDefault();
+        viewTask(task);
     }
 
     return <li key={task.id} 
@@ -53,11 +55,11 @@ function TaskListItem({ task, theme }: { task: Task, theme: string }): React.Rea
             </div>
             <p 
             className={`hover:underline hover:cursor-pointer ${taskListCss.text}`}
-            onClick={() => seeTask(task.id)}>{task.title}</p> 
+            onClick={(e: React.MouseEvent<HTMLParagraphElement>) => seeTask(e, task)}>{task.title}</p> 
             <StatusInfo status={ status }/>
         </div>
         <div>
-            <ActionBtn taskId={task.id} theme={theme}/>
+            <ActionBtn taskId={task && task.id ? task.id: -1}/>
         </div>
     </li>
 }

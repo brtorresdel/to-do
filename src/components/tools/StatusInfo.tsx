@@ -1,7 +1,11 @@
 import type { statusCss } from "../../types/cssDecoration";
 import type { TaskStatus } from "../../types/task";
 
-export default function StatusInfo ({ status }: {status: TaskStatus} ) {
+export default function StatusInfo ({ status }: {status: TaskStatus} ): React.ReactElement {
+
+    // TODO: create de function to calculate the recieved date and output the right label
+    // TODO: edit the props to get the unformated date
+
     let statusCss: statusCss;
 
     switch (status) {
