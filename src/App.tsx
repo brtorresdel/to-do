@@ -23,12 +23,22 @@ function App() {
   const [taskList, setTaskList] = useState<Task[]>(TaskLS.getList());
   const [taskInfo, setTaskInfo] = useState<Task | undefined>(undefined);
 
-  const changeTaskFormview = () => setTaskFormVisibility(!taskFormVisibility); 
+  const changeTaskFormView = () => {
+    if (taskFormVisibility) setTaskInfo(undefined);
+    setTaskFormVisibility(!taskFormVisibility)
+  }; 
+  
   const changeTaskInfoView = () => setTaskInfoVisibility(!taskInfoVisibility);
 
   const viewTask = (task: Task) => {
     setTaskInfo(task);
     changeTaskInfoView();
+  }
+
+  const openEditTask = (task: Task) => {
+    setTaskInfo(task);
+    if (taskInfoVisibility)  changeTaskInfoView();
+    changeTaskFormView();
   }
 
   useEffect(() => {
@@ -45,17 +55,21 @@ function App() {
         <div className=' w-1/2 flex flex-col'>
           <div className='h-auto w-full flex flex-row items-center justify-between '>
             <h1 className={`font-title text-5xl ${textTheme}`}>To-do list!</h1>
-            <NewTaskBtn onClick={changeTaskFormview}/>
+            <NewTaskBtn onClick={changeTaskFormView}/>
           </div>
         </div>
 
-        <TaskList tasks={taskList} viewTask={(task: Task) => viewTask(task)}/>
+        <TaskList tasks={taskList} 
+        viewTask={(task: Task) => 
+        viewTask(task)} 
+        editTask={(task: Task) => openEditTask(task)}
+        deleteTask={() => {}}/>
         
         <div className=' w-1/2 flex flex-col'>
           <FinishedTasksBtn />
         </div>
         
-        <TaskForm task={undefined} close={changeTaskFormview} hidden={taskFormVisibility}/>
+        <TaskForm task={taskInfo} close={changeTaskFormView} hidden={taskFormVisibility}/>
         <TaskInfo task={taskInfo} close={changeTaskInfoView} hidden={taskInfoVisibility}/>
       </div>
     </ThemeContext.Provider>

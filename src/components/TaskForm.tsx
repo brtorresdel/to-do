@@ -1,8 +1,8 @@
-import { Plus, X } from "lucide-react";
+import { Plus, SquarePen, X } from "lucide-react";
 import type { Task } from "../types/task";
 import type { taskFormCss, inputCss, btnCss } from "../types/cssDecoration";
 import { ThemeContext, type ThemeContextType } from "../context/Theme";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Modal from "./tools/Modal";
 import { TaskLS } from "../class/task";
 
@@ -15,6 +15,15 @@ export default function TaskForm({ task, close, hidden }: { task?: Task, close: 
     const [dueDate, setDueDate] = useState("");
     const [description, setDescription] = useState("");
     const [observations, setObservations] = useState("");
+
+    useEffect(() => {
+        if (task) {
+            setTitle(task.title);
+            setDueDate(task.deadline ? task.deadline.toISOString() : "");
+            setDescription(task.description ? task.description : "");
+            setObservations(task.observations ? task.observations : "");
+        }
+    }, [task]);
 
     const [submitTry, setSubmitTry] = useState(false);
 
@@ -92,7 +101,8 @@ export default function TaskForm({ task, close, hidden }: { task?: Task, close: 
                         className={`${btnCss.bg} h-auto w-full p-3 rounded-lg flex flex-row justify-center-safe gap-2
                         hover:scale-102 hover:drop-shadow-xl active:scale-95 transition duration-150`}
                         onClick={task ? editTask : newTask}>
-                            <span className={btnCss.textColor}>{task ? "Editar Tarefa" : "Adicionar tarefa"}</span> <Plus color={btnCss.svgColor}/>
+                            <span className={btnCss.textColor}>{task ? "Editar Tarefa" : "Adicionar tarefa"}</span> 
+                            {task ? <SquarePen color={btnCss.svgColor}/> : <Plus color={btnCss.svgColor}/>}
                         </button>
                        </div>
                 </form>

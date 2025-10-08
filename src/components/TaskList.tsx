@@ -6,7 +6,16 @@ import StatusInfo from "./tools/StatusInfo";
 import type { Task, TaskStatus } from '../types/task';
 import type { taskListCss } from '../types/cssDecoration';
 
-export default function TaskList({tasks, viewTask}: {tasks: Task[], viewTask: (task: Task) => void}): React.ReactElement {
+export default function TaskList({
+    tasks, 
+    viewTask, 
+    editTask, 
+    deleteTask}
+    : 
+    {tasks: Task[], 
+    viewTask: (task: Task) => void, 
+    editTask: (task: Task) => void, 
+    deleteTask: (task: Task) => void}): React.ReactElement {
 
     const {theme}: ThemeContextType = useContext(ThemeContext);
     // TODO: adjust the div to have a min height
@@ -14,7 +23,12 @@ export default function TaskList({tasks, viewTask}: {tasks: Task[], viewTask: (t
     return (
         <div className="w-1/2 pb-3">
             {tasks.length > 0 ?
-                <ul className="flex-col">{tasks.map(currentTask => <TaskListItem task={currentTask} viewTask={(currentTask) => viewTask(currentTask)} theme={theme}/>)}</ul> :
+                <ul className="flex-col">{tasks.map(currentTask => <TaskListItem 
+                                                                    task={currentTask} 
+                                                                    viewTask={(currentTask) => viewTask(currentTask)}
+                                                                    editTask={(currentTask) => editTask(currentTask)} 
+                                                                    deleteTask={(currentTask) => deleteTask(currentTask)}
+                                                                    theme={theme}/>)}</ul> :
                 <div className="p-8 flex justify-center">
                     <p className={`${theme === "light" ? "text-font-light" : "text-font-dark"}`}>Nenhuma tarefa cadastrada &#128531;</p>
                 </div>
@@ -23,7 +37,18 @@ export default function TaskList({tasks, viewTask}: {tasks: Task[], viewTask: (t
     )
 }
 
-function TaskListItem({ task, viewTask, theme }: { task: Task, viewTask: (task: Task) => void, theme: string }): React.ReactElement {
+function TaskListItem({ 
+    task, 
+    viewTask, 
+    editTask, 
+    deleteTask, 
+    theme }
+    : 
+    { task: Task, 
+    viewTask: (task: Task) => void, 
+    editTask: (task: Task) => void, 
+    deleteTask: (task: Task) => void, 
+    theme: string }): React.ReactElement {
 
     const status: TaskStatus = task.finished ? 4 :
     !task.deadline ? 1 : 
@@ -59,7 +84,9 @@ function TaskListItem({ task, viewTask, theme }: { task: Task, viewTask: (task: 
             <StatusInfo status={ status }/>
         </div>
         <div>
-            <ActionBtn taskId={task && task.id ? task.id: -1}/>
+            <ActionBtn 
+            editTask={() => editTask(task)}
+            deleteTask={() => deleteTask(task)}/>
         </div>
     </li>
 }
