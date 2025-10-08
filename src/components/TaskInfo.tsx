@@ -8,7 +8,18 @@ import Modal from "./tools/Modal";
 
 
 
-export default function TaskInfo( {task, close, hidden}: {task: Task | undefined, close: () => void, hidden: boolean} ): React.ReactElement {
+export default function TaskInfo( 
+    {task, 
+    close, 
+    hidden, 
+    editTask, 
+    deleteTask}
+    : 
+    {task: Task, 
+    close: () => void, 
+    hidden: boolean, 
+    editTask: (task: Task) => void, 
+    deleteTask: (task: Task) => void} ): React.ReactElement {
     // TODO: add props with the task info
     // TODO: change the CSS to include dark mode
 
@@ -41,7 +52,7 @@ export default function TaskInfo( {task, close, hidden}: {task: Task | undefined
                         <Content title="Prazo" description={task && task.deadline ? `${task.deadline.getDate()}/${task.deadline.getMonth()}/${task.deadline.getFullYear()}` : "Sem prazo"} theme={taskInfoCss}/>
                     </div>
                     <div className="flex flex-row justify-center scale-130">
-                        <ActionBtn taskId={task && task.id ? task.id : -1}/>
+                        <ActionBtn editTask={() => editTask(task)} deleteTask={() => deleteTask(task)}/>
                     </div>
                 </div>
             </Modal>
