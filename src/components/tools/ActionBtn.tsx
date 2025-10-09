@@ -2,8 +2,9 @@ import { useContext } from "react";
 import type { actionBtnCss } from "../../types/cssDecoration";
 import { SquarePen, Trash2 } from "lucide-react";
 import { ThemeContext } from "../../context/Theme";
+import type { Task } from "../../types/task";
 
-export default function ActionBtn({editTask, deleteTask}: {editTask: () => void, deleteTask: () => void}): React.ReactElement {
+export default function ActionBtn({editTask, deleteTask}: {editTask: (task: Task) => void, deleteTask: () => void}): React.ReactElement {
 
     // TODO: create function to use the taskId recieved from props
 

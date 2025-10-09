@@ -15,7 +15,7 @@ export default function TaskInfo(
     editTask, 
     deleteTask}
     : 
-    {task: Task, 
+    {task: Task | undefined, 
     close: () => void, 
     hidden: boolean, 
     editTask: (task: Task) => void, 
@@ -29,6 +29,8 @@ export default function TaskInfo(
         bg: theme === "light" ? "bg-bg-light" : "bg-bg-dark",
         text: theme === "light" ? "text-font-light" : "text-font-dark"
     }
+
+    const dueDate = task?.deadline ? new Date(task?.deadline) : null;
 
     return (
         hidden ? (
@@ -49,7 +51,7 @@ export default function TaskInfo(
                     <div className="flex flex-col gap-3">
                         <Content title="Descrição" description={task && task.description ? task.description : ""} theme={taskInfoCss}/>
                         <Content title="Observações" description={task && task.observations ? task.observations : "Sem observações"} theme={taskInfoCss}/>
-                        <Content title="Prazo" description={task && task.deadline ? `${task.deadline.getDate()}/${task.deadline.getMonth()}/${task.deadline.getFullYear()}` : "Sem prazo"} theme={taskInfoCss}/>
+                        <Content title="Prazo" description={task && task.deadline && dueDate ? `${dueDate?.getDate()}/${dueDate?.getMonth() + 1 < 10 ? "0" + (dueDate?.getMonth() + 1) : dueDate?.getMonth() + 1}/${dueDate?.getFullYear()}` : "Sem prazo"} theme={taskInfoCss}/>
                     </div>
                     <div className="flex flex-row justify-center scale-130">
                         <ActionBtn editTask={() => editTask(task)} deleteTask={() => deleteTask(task)}/>

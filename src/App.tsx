@@ -24,11 +24,14 @@ function App() {
   const [taskInfo, setTaskInfo] = useState<Task | undefined>(undefined);
 
   const changeTaskFormView = () => {
-    if (taskFormVisibility) setTaskInfo(undefined);
-    setTaskFormVisibility(!taskFormVisibility)
+    setTaskInfo(undefined);
+    setTaskFormVisibility(!taskFormVisibility);
   }; 
   
-  const changeTaskInfoView = () => setTaskInfoVisibility(!taskInfoVisibility);
+  const changeTaskInfoView = () => {
+    if (taskInfoVisibility) setTaskInfo(undefined);
+    setTaskInfoVisibility(!taskInfoVisibility);
+  };
 
   const viewTask = (task: Task) => {
     setTaskInfo(task);
@@ -60,8 +63,7 @@ function App() {
         </div>
 
         <TaskList tasks={taskList} 
-        viewTask={(task: Task) => 
-        viewTask(task)} 
+        viewTask={(task: Task) => viewTask(task)} 
         editTask={(task: Task) => openEditTask(task)}
         deleteTask={() => {}}/>
         
@@ -70,7 +72,12 @@ function App() {
         </div>
         
         <TaskForm task={taskInfo} close={changeTaskFormView} hidden={taskFormVisibility}/>
-        <TaskInfo task={taskInfo} close={changeTaskInfoView} hidden={taskInfoVisibility}/>
+        <TaskInfo 
+        task={taskInfo} 
+        close={changeTaskInfoView} 
+        hidden={taskInfoVisibility}
+        editTask={(task: Task) => openEditTask(task)}
+        deleteTask={() => {}}/>
       </div>
     </ThemeContext.Provider>
   )
