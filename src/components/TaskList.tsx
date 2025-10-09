@@ -50,9 +50,12 @@ function TaskListItem({
     deleteTask: (task: Task) => void, 
     theme: string }): React.ReactElement {
 
+    const today = new Date();
+    const deadlineDate = task.deadline ? new Date(task.deadline) : null;
+
     const status: TaskStatus = task.finished ? 4 :
     !task.deadline ? 1 : 
-    new Date() > task.deadline ? 3 
+    deadlineDate && today.getTime() > deadlineDate.getTime() ? 3 
     : 2;
 
     const taskListCss: taskListCss = {

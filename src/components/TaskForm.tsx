@@ -17,12 +17,11 @@ export default function TaskForm({ task, close, hidden }: { task?: Task, close: 
     const [observations, setObservations] = useState("");
 
     useEffect(() => {
-        if (task) {
-            setTitle(task.title);
-            setDueDate(task.deadline ? task.deadline.toISOString() : "");
-            setDescription(task.description ? task.description : "");
-            setObservations(task.observations ? task.observations : "");
-        }
+        const dueDate = task?.deadline ? new Date(task.deadline) : null;
+        setTitle(task? task.title : "");
+        setDueDate(task?.deadline ? `${dueDate?.getDate()}/${dueDate?.getMonth()}/${dueDate?.getFullYear()}` : "");
+        setDescription(task && task.description ? task.description : "");
+        setObservations(task && task.observations ? task.observations : "");
     }, [task]);
 
     const [submitTry, setSubmitTry] = useState(false);
@@ -42,11 +41,11 @@ export default function TaskForm({ task, close, hidden }: { task?: Task, close: 
     }
 
     const resetModal = () => {
-        close();
         setTitle("");
         setDueDate("");
         setDescription("");
         setObservations("");
+        close();
     }
 
     const newTask = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -55,7 +54,7 @@ export default function TaskForm({ task, close, hidden }: { task?: Task, close: 
         if (!title || !description) return;
         TaskLS.addTask({
             title: title,
-            deadline: dueDate !== "" ? new Date(dueDate) : null,
+            deadline: dueDate !== "" ? new Date(`${dueDate}T12:00:00Z`) : null,
             description: description,
             observations: observations !== "" ? observations : null,
             finished: false
@@ -69,7 +68,7 @@ export default function TaskForm({ task, close, hidden }: { task?: Task, close: 
         TaskLS.updateTask({
             id: task?.id,
             title: title,
-            deadline: dueDate !== "" ? new Date(dueDate) : null,
+            deadline: dueDate !== "" ? new Date(`${dueDate}T12:00:00Z`) : null,
             description: description,
             observations: observations !== "" ? observations : null,
             finished: false
@@ -146,6 +145,6 @@ function InputElem ( {name, required, value, theme, submitTry, onChange}: {name:
             placeholder={capitalize}
             className={`w-full border-1 m-0.25 ${inputCss.border} ${inputCss.text} ${inputCss.bg} rounded-lg p-1.5 focus:border-2 focus:m-0 transition duration-200`}
             value={value ? value : ""}
-            onChange={e => onChange(e.target.value)}/>}
+            onChange={e => {onChange(e.target.value)}}/>}
     </div>
 }
