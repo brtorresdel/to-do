@@ -6,16 +6,7 @@ import StatusInfo from "./tools/StatusInfo";
 import type { Task, TaskStatus } from '../types/task';
 import type { taskListCss } from '../types/cssDecoration';
 
-export default function TaskList({
-    tasks, 
-    viewTask, 
-    editTask, 
-    deleteTask}
-    : 
-    {tasks: Task[], 
-    viewTask: (task: Task) => void, 
-    editTask: (task: Task) => void, 
-    deleteTask: (task: Task) => void}): React.ReactElement {
+export default function TaskList({tasks}: {tasks: Task[]}): React.ReactElement {
 
     const {theme}: ThemeContextType = useContext(ThemeContext);
     // TODO: adjust the div to have a min height
@@ -25,9 +16,6 @@ export default function TaskList({
             {tasks.length > 0 ?
                 <ul className="flex-col">{tasks.map(currentTask => <TaskListItem 
                                                                     task={currentTask} 
-                                                                    viewTask={(currentTask) => viewTask(currentTask)}
-                                                                    editTask={(currentTask) => editTask(currentTask)} 
-                                                                    deleteTask={(currentTask) => deleteTask(currentTask)}
                                                                     theme={theme}/>)}</ul> :
                 <div className="p-8 flex justify-center">
                     <p className={`${theme === "light" ? "text-font-light" : "text-font-dark"}`}>Nenhuma tarefa cadastrada &#128531;</p>
@@ -37,18 +25,7 @@ export default function TaskList({
     )
 }
 
-function TaskListItem({ 
-    task, 
-    viewTask, 
-    editTask, 
-    deleteTask, 
-    theme }
-    : 
-    { task: Task, 
-    viewTask: (task: Task) => void, 
-    editTask: (task: Task) => void, 
-    deleteTask: (task: Task) => void, 
-    theme: string }): React.ReactElement {
+function TaskListItem({ task, theme }: { task: Task, theme: string }): React.ReactElement {
 
     const today = new Date();
     const deadlineDate = task.deadline ? new Date(task.deadline) : null;
@@ -63,11 +40,6 @@ function TaskListItem({
         text: theme === "light" ? "text-font-light" : "text-font-dark",
         border: theme === "light" ? "hover:border-blue-400" : "hover:border-border-dark",
         check: theme === "light" ? "border-font-light" : "border-font-dark"
-    }
-
-    const seeTask = (e: React.MouseEvent, task: Task) => {
-        e.preventDefault();
-        viewTask(task);
     }
 
     return <li key={task.id} 
@@ -87,9 +59,7 @@ function TaskListItem({
             <StatusInfo status={ status }/>
         </div>
         <div>
-            <ActionBtn 
-            editTask={() => editTask(task)}
-            deleteTask={() => deleteTask(task)}/>
+            <ActionBtn task={task}/>
         </div>
     </li>
 }

@@ -9,17 +9,8 @@ import Modal from "./tools/Modal";
 
 
 export default function TaskInfo( 
-    {task, 
-    close, 
-    hidden, 
-    editTask, 
-    deleteTask}
-    : 
-    {task: Task | undefined, 
-    close: () => void, 
-    hidden: boolean, 
-    editTask: (task: Task) => void, 
-    deleteTask: (task: Task) => void} ): React.ReactElement {
+    {task, close, hidden}: 
+    {task: Task | undefined, close: () => void, hidden: boolean} ): React.ReactElement {
     // TODO: add props with the task info
     // TODO: change the CSS to include dark mode
 

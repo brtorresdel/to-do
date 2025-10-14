@@ -3,10 +3,13 @@ import type { actionBtnCss } from "../../types/cssDecoration";
 import { SquarePen, Trash2 } from "lucide-react";
 import { ThemeContext } from "../../context/Theme";
 import type { Task } from "../../types/task";
+import { TaskEdit } from "../../context/ActionBtn";
 
-export default function ActionBtn({editTask, deleteTask}: {editTask: (task: Task) => void, deleteTask: () => void}): React.ReactElement {
+export default function ActionBtn(task: Task): React.ReactElement {
 
     // TODO: create function to use the taskId recieved from props
+
+    const {editTask, deleteTask, viewTask} = useContext(ActionBtnContext);
 
     const {theme} = useContext(ThemeContext);
 

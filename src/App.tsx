@@ -1,6 +1,7 @@
 import './App.css'
 import { useEffect, useState} from 'react';
 import { type Theme, ThemeContext } from './context/Theme';
+import { ActionBtnContext } from './context/ActionBtn';
 import ThemeSwitch from './components/ThemeSwitch';
 import NewTaskBtn from './components/NewTaskBtn';
 import TaskList from './components/TaskList';
@@ -62,22 +63,21 @@ function App() {
           </div>
         </div>
 
-        <TaskList tasks={taskList} 
-        viewTask={(task: Task) => viewTask(task)} 
-        editTask={(task: Task) => openEditTask(task)}
-        deleteTask={() => {}}/>
+        <ActionBtnContext.Provider value={[(task: Task) => {openEditTask(task)}, 
+                                           (task: Task) => {deleteTask(task)}, 
+                                           (task: Task) => {viewTask(task)}]}>
+          <TaskList tasks={taskList}/>
+          <TaskForm task={taskInfo} close={changeTaskFormView} hidden={taskFormVisibility}/>
+          <TaskInfo task={taskInfo} close={changeTaskInfoView} hidden={taskInfoVisibility}/>
+        </ActionBtnContext.Provider>
+
+        
         
         <div className=' w-1/2 flex flex-col'>
           <FinishedTasksBtn />
         </div>
         
-        <TaskForm task={taskInfo} close={changeTaskFormView} hidden={taskFormVisibility}/>
-        <TaskInfo 
-        task={taskInfo} 
-        close={changeTaskInfoView} 
-        hidden={taskInfoVisibility}
-        editTask={(task: Task) => openEditTask(task)}
-        deleteTask={() => {}}/>
+        
       </div>
     </ThemeContext.Provider>
   )
