@@ -3,7 +3,7 @@ import type { actionBtnCss } from "../../types/cssDecoration";
 import { SquarePen, Trash2 } from "lucide-react";
 import { ThemeContext } from "../../context/Theme";
 import type { Task } from "../../types/task";
-import { TaskEdit } from "../../context/ActionBtn";
+import { ActionBtnContext } from "../../context/ActionBtn";
 
 export default function ActionBtn(task: Task): React.ReactElement {
 
