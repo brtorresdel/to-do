@@ -10,9 +10,13 @@ import { TaskLS } from './class/task';
 import { type Task } from './types/task';
 import TaskForm from './components/TaskForm';
 import TaskInfo from './components/TaskInfo';
+import TaskDeleteConfirmation from './components/TaskDeleteConfirmation';
 
 
 function App() {
+
+  // TODO: construct the delete task function & send to context
+
   const [theme, setTheme] = useState<Theme>('light');
   const changeTheme = () => setTheme(theme === "light" ? "dark" : "light");
   const themeBg: string = theme === 'light' ? "bg-bg-light" : "bg-bg-dark";
@@ -69,6 +73,7 @@ function App() {
           <TaskList tasks={taskList}/>
           <TaskForm task={taskInfo} close={changeTaskFormView} hidden={taskFormVisibility}/>
           <TaskInfo task={taskInfo} close={changeTaskInfoView} hidden={taskInfoVisibility}/>
+          <TaskDeleteConfirmation task={taskInfo}/>
         </ActionBtnContext.Provider>
 
         
