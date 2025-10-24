@@ -24,6 +24,7 @@ function App() {
 
   const [taskFormVisibility, setTaskFormVisibility] = useState<boolean>(false);
   const [taskInfoVisibility, setTaskInfoVisibility] = useState<boolean>(false);
+  const [taskDeleteVisibility, setTaskDeleteVisibility] = useState<boolean>(false); 
 
   const [taskList, setTaskList] = useState<Task[]>(TaskLS.getList());
   const [taskInfo, setTaskInfo] = useState<Task | undefined>(undefined);
@@ -38,6 +39,10 @@ function App() {
     setTaskInfoVisibility(!taskInfoVisibility);
   };
 
+  const changeTaskDeleteView =() => {
+    setTaskDeleteVisibility(!taskDeleteVisibility);
+  }
+
   const viewTask = (task: Task) => {
     setTaskInfo(task);
     changeTaskInfoView();
@@ -48,7 +53,7 @@ function App() {
     if (taskInfoVisibility)  changeTaskInfoView();
     changeTaskFormView();
   }
-
+  
   useEffect(() => {
     setTaskList(TaskLS.getList());
   }, [taskFormVisibility]);
@@ -73,7 +78,7 @@ function App() {
           <TaskList tasks={taskList}/>
           <TaskForm task={taskInfo} close={changeTaskFormView} hidden={taskFormVisibility}/>
           <TaskInfo task={taskInfo} close={changeTaskInfoView} hidden={taskInfoVisibility}/>
-          <TaskDeleteConfirmation task={taskInfo}/>
+          <TaskDeleteConfirmation task={taskInfo} close={changeTaskDeleteView} hidden={taskDeleteVisibility}/>
         </ActionBtnContext.Provider>
 
         
